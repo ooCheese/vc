@@ -13,15 +13,14 @@ def calc_luminance(left,right,top):
     for i in range(rows):
         for j in range(colums):
             lum[i][j] = calc_pix_luminance(left[i][j],right[i][j],top[i][j])
-
     return lum
 
 def calc_bias(left,right):
     return cv2.subtract(left,right)
 
 def calc_bias_white(left,right,top):
-    
     bias = calc_bias(left,right)
+    
     print(bias)
     return (np.full(top.shape, 0.6) - np.negative(bias)).astype(np.uint8)
             
