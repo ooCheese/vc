@@ -1,3 +1,7 @@
+'''
+@author: Lukas Wedemeyer
+'''
+
 import cv2
 import numpy as np
 
