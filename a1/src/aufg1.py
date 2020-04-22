@@ -97,9 +97,9 @@ def clac_brightness_white(left,right,top):
     return light_up_img(clac_brightness(left,right,top),0.5)
 
 def main():
-    img_left = cv2.imread("a1/resource/cover_left.JPG",0)
-    img_right = cv2.imread("a1/resource/cover_right.JPG",0)
-    img_top = cv2.imread("a1/resource/cover_top.JPG",0)
+    img_left = cv2.imread("../resource/cover_left.JPG",0)
+    img_right = cv2.imread("../resource/cover_right.JPG",0)
+    img_top = cv2.imread("../resource/cover_top.JPG",0)
 
     img_luminance = calc_luminance(img_left,img_right,img_top)
     img_bias = calc_bias(img_left,img_right)
@@ -107,16 +107,17 @@ def main():
     img_bias_w = calc_bias_white(img_left,img_right)
     img_brightness_w = clac_brightness_white(img_left,img_right,img_top)
 
-    cv2.imwrite("a1/out/cover_luminance.JPG",img_luminance)
-    cv2.imwrite("a1/out/cover_bias.JPG",img_bias)
-    cv2.imwrite("a1/out/cover_brightness.JPG",img_brightness)
-    cv2.imwrite("a1/out/cover_bias_w.JPG",img_bias_w)
-    cv2.imwrite("a1/out/cover_brightness_w.JPG",img_brightness_w)
+    cv2.imwrite("../out/cover_luminance.JPG",img_luminance)
+    cv2.imwrite("../out/cover_bias.JPG",img_bias)
+    cv2.imwrite("../out/cover_brightness.JPG",img_brightness)
+    cv2.imwrite("../out/cover_bias_w.JPG",img_bias_w)
+    cv2.imwrite("../out/cover_brightness_w.JPG",img_brightness_w)
 
     row1 = np.hstack((img_left,img_top,img_right,img_bias_w))
     row2 = np.hstack((img_luminance,img_bias,img_brightness,img_brightness_w))
         
     stacked = np.vstack((row1,row2))
+    cv2.imwrite("../out/stacked.jpg",stacked)
 
     cv2.namedWindow('images',cv2.WINDOW_NORMAL)
     cv2.imshow("images",stacked)
