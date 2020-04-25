@@ -5,13 +5,24 @@
 import cv2
 import numpy as np
 
+LIGHT_UP_FACTOR = 0.6
+
+def remap(img,min,max):
+    '''s
+    mapping the min and max pixel value to min , max
+    '''
+
+    factor = (max - min) / (img.max()-img.min())
+    return (img * factor + min).astype(np.uint8)
+
 def light_up_img(img,factor):
     '''
     ligth up a image with a factor
-    img = (source) Image
+    img = (source) Image 
     factor = ligth up factor
     '''
-    return cv2.add(img,np.full(img.shape,np.uint8(255*factor)))
+    return remap(img,255*factor,255)
+
 
 def calc_pix_luminance(left,right,top):
     '''
@@ -54,8 +65,7 @@ def calc_bias_white(left,right):
     left = left Img (grey)
     right = right Img (grey)
     '''
-
-    return light_up_img(calc_bias(left,right),0.5)
+    return light_up_img(calc_bias(left,right),LIGHT_UP_FACTOR)
             
 def clac_pix_brightness(left,right,top):
     '''
@@ -94,7 +104,7 @@ def clac_brightness_white(left,right,top):
     top = top Img (grey)
     '''
 
-    return light_up_img(clac_brightness(left,right,top),0.5)
+    return light_up_img(clac_brightness(left,right,top),LIGHT_UP_FACTOR)
 
 def main():
     img_left = cv2.imread("../resource/cover_left.JPG",0)
