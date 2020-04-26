@@ -5,15 +5,15 @@
 import cv2
 import numpy as np
 
-LIGHT_UP_FACTOR = 0.6
+LIGHT_UP_FACTOR = 0.5
 
-def remap(img,min,max):
-    '''s
-    mapping the min and max pixel value to min , max
+def remap(img,oldmin,oldmax,min,max):
+    '''
+    mapping the oldmin and oldmax pixel value to min , max
     '''
 
-    factor = (max - min) / (img.max()-img.min())
-    return (img * factor + min).astype(np.uint8)
+    factor = (max - min) / (oldmin-oldmax)
+    return (img * factor + (min-oldmin)).astype(np.uint8)
 
 def light_up_img(img,factor):
     '''
@@ -21,20 +21,8 @@ def light_up_img(img,factor):
     img = (source) Image 
     factor = ligth up factor
     '''
-    return remap(img,255*factor,255)
-
-
-def calc_pix_luminance(left,right,top):
-    '''
-    calculate luminace for a single pixel
-    left = greyValue (left Img)
-    right = greyValue (right Img)
-    top = greyValue (top Img)
-    '''
-
-    x = int(left) + int(right) + int(top)
-    x //= 3
-    return x 
+    img = img.astype(int) + 255*factor
+    return remap(img ,0,img.max(),0,255)
 
 def calc_luminance(left,right,top):
     '''
@@ -46,10 +34,7 @@ def calc_luminance(left,right,top):
     lum = left.copy()
     rows,colums = left.shape
 
-    for i in range(rows):
-        for j in range(colums):
-            lum[i][j] = calc_pix_luminance(left[i][j],right[i][j],top[i][j])
-    return lum
+    return ((np.add(left,right,dtype=int) + top) // 3).astype(np.uint8)
 
 def calc_bias(left,right):
     '''
@@ -66,19 +51,6 @@ def calc_bias_white(left,right):
     right = right Img (grey)
     '''
     return light_up_img(calc_bias(left,right),LIGHT_UP_FACTOR)
-            
-def clac_pix_brightness(left,right,top):
-    '''
-    calculate brightness for a single pixel
-    left = greyValue (left Img)
-    right = greyValue (right Img)
-    top = greyValue (top Img)
-    '''
-
-    x = int(top - (int(left)+int(right))/2)
-    if x < 0:
-        x = 0
-    return x
 
 def clac_brightness(left,right,top):
     '''
@@ -90,11 +62,7 @@ def clac_brightness(left,right,top):
 
     br = left.copy()
     rows,colums = left.shape
-
-    for i in range(rows):
-        for j in range(colums):
-            br[i][j] = clac_pix_brightness(left[i][j],right[i][j],top[i][j])
-    return br
+    return cv2.subtract(top,(np.add(left,right,dtype=int)//2).astype(np.uint8))
 
 def clac_brightness_white(left,right,top):
     '''
