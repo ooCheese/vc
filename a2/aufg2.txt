@@ -1,0 +1,8 @@
+Qudrate Seiten: 
+2084 * 0.0055 mm = 11.264
+
+Linsen Durchmesser:
+2 * 11.264^2 = c^2
+c = 15,92970156657054‬ ~ 16 mm
+
+Die Linse muss einen Durchmesser von ca. 16mm bzw. einen Radius von ca. 8mm haben
