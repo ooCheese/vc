@@ -13,7 +13,7 @@ def main():
     
     c_matrix = np.array(data["camera_matrix"])
     distortion = np.array(data["distortion"])
-
+    
     img_1u = cv2.undistort(img_1,c_matrix,distortion)
     img_2u = cv2.undistort(img_2,c_matrix,distortion)
     img_3u = cv2.undistort(img_3,c_matrix,distortion)
