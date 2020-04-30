@@ -1,3 +1,4 @@
 .pylintrc
 pylint
 .vscode
+a2/__pycache__

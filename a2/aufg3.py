@@ -9,7 +9,8 @@ def clac_calibration_matrix(k,x):
         ]
     )
 
-def calc_camera_matrix(calibration_matrix,camera_orientation,t):
+def calc_camera_matrix(calibration_matrix,camera_orientation,camera_center):
+    t = (camera_orientation @ camera_center)*-1
     x = np.append(camera_orientation,t.reshape(3,1),axis=1)
     print("R|t t = -Rc :",x)
     return calibration_matrix @ x
@@ -32,10 +33,10 @@ def main():
     k = calc_focal_length_respect_pixel_size(f,pixel_per_unit)
     x = calc_principal_point_respect_pixel_size(h,pixel_per_unit)
     cali = clac_calibration_matrix(k,x)
-    t = (camera_orientation*-1) @ c
-    p = calc_camera_matrix(cali,camera_orientation,t)
+    p = calc_camera_matrix(cali,camera_orientation,c)
 
     np.set_printoptions(suppress=True)
+    print("recons. aufg4",)
     print("k =",k)
     print("x =",x)
     print("K =\n",cali)
