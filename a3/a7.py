@@ -68,7 +68,7 @@ def calc_img():
     #2
     sharr_x = cv2.Scharr(src_img,ddepth,1,0)
     sharr_y = cv2.Scharr(src_img,ddepth,0,1)
-    img_len = cv2.Laplacian(src_img,ddepth)
+    img_len = cv2.Laplacian(src_img,ddepth) # TODO
     #3
     canny = cv2.Canny(src_img,canny_th1,canny_th2)
     canny = cv2.merge((canny,canny,canny))
