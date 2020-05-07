@@ -29,6 +29,7 @@ def main():
     resultion = np.array([640,480]) #pixels
     camera_orientation = np.identity(3)
 
+    h = h * pixel_length
     pixel_per_unit = resultion * pixel_length #in px/mm
     k = calc_focal_length_respect_pixel_size(f,pixel_per_unit)
     x = calc_principal_point_respect_pixel_size(h,pixel_per_unit)
