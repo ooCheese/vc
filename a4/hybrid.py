@@ -44,16 +44,24 @@ def main():
     H_gray = gen_hybrid(i_1,i_2,sigma)
 
     cv2.imshow("hybrid gray",H_gray)
-    cv2.imwrite("out/hybrid_gray.png",H_gray)
+    cv2.imwrite("out/hybrid_gray.png",H_gray* 255)
     cv2.waitKey(0)
 
-    i_1 = cv2.imread("resource/Marylin_grey.png") / 255 #color
-    i_2 = cv2.imread("resource/John_grey.png") / 255 #color
+    #color hybrid
+    i_1 = cv2.imread("resource/pizza1.jpg") / 255 #color
+    i_2 = cv2.imread("resource/pizza2.jpg") / 255 #color
+
+    #resize
+    width = int(i_1.shape[1] / 10)
+    height = int(i_2.shape[0] / 10)
+    dim = (width, height)
+    i_1 = cv2.resize(i_1,dim)
+    i_2 = cv2.resize(i_2,dim)
 
     H_col = gen_hybrid(i_1,i_2,sigma)
 
-    cv2.imshow("hybrid color",H_col)
-    cv2.imwrite("out/hybrid_color.png",H_col)
+    cv2.imshow("hybrid",H_col)
+    cv2.imwrite("out/hybrid_color.png",H_col* 255)
     cv2.waitKey(0)
     
 
