@@ -49,13 +49,13 @@ def combine_img(img_1,img_2):
     return np.hstack((img_p2,img_p1))
 
 def main():
-    img_1 = cv2.imread("resource/horse.png")
-    img_2 = cv2.imread("resource/zebra.png")
+    img_1 = cv2.imread("resource/horse.png") / 255
+    img_2 = cv2.imread("resource/zebra.png") / 255
 
     img = combine_img(img_1,img_2)
 
     cv2.imshow("hobra",img)
-    cv2.imwrite("out/hobra.png",img)
+    cv2.imwrite("out/hobra.png",img*255)
     cv2.waitKey(0)
 
     pry_1 = create_pyramid(img_1,LVL)
@@ -75,7 +75,7 @@ def main():
     d = reconstruct_pyramid(c_img_lst)
 
     cv2.imshow("hobra",d)
-    cv2.imwrite("out/hobra3.png",d)
+    cv2.imwrite("out/hobra2.png",d * 255)
     cv2.waitKey(0)
 
 if __name__ == "__main__":
