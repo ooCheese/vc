@@ -24,6 +24,11 @@ def calc_calibration_matrix(camera_matrix,camera_orientation):
     x_v = e 
     k_u = math.sqrt(a - ((b-c*e)**2 / (d - e**2)) - c**2)
     k_v = math.sqrt(d-e**2)
+
+    print("x_u :",x_u)
+    print("x_v :",x_v)
+    print()
+
     s = (b - c*e)/math.sqrt(d-e**2)
 
     return np.array([

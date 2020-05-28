@@ -2,3 +2,8 @@
 pylint
 .vscode
 a2/__pycache__
+a4/out
+a5/out
+a6/data
+a6/networks
+a6/__pycache__
